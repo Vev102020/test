@@ -1205,7 +1205,6 @@ $(function() {
 
 // Открытие Контактов, Меню, Сравнения, Избранного
 function openMenu2() {
- 
   $('.search-submit_button').on('click', function(){
     $('#headerSearch').addClass('active');
   })
@@ -1229,9 +1228,7 @@ function openMenu2() {
     $('header .mainnav').animate({opacity: '0'}, 1)
     $('.overlay').addClass('opened');
   });
-
-
-
+	
   // Имитация клика по каталогу в меню
   $('.mainnav__catalog').on('click', function (event){
     if ($(this).hasClass('active'))
