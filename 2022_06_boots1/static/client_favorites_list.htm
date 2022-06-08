@@ -1,0 +1,77 @@
+<div class="favorites_page">
+{% IF favorites_goods_empty %}
+  <div class="attention">Ваш список избранных товаров пуст. Вы можете выбрать товары из <a href="{CATALOG_URL}" title="Перейти в каталог">Каталога</a>.</div>
+{% ELSE %}
+  <!-- Избранные товары -->
+  <div class="products-grid imgSize">
+    {% FOR favorites_goods %}
+    <div class="item {% IF favorites_goods.MAX_REST_VALUE=0 && SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}empty{% ENDIF %}{% IF favorites_goods.COUNT_MODIFICATION > 1 %} _with-mod{% ENDIF %}">
+              <div class="item-inner" itemscope itemtype="https://schema.org/Product">
+                <form action="{CART_ADD_GOODS_MODIFICATION_URL | url_amp}" method="post" class="product-form-{favorites_goods.MIN_PRICE_NOW_ID} goodsListForm">
+                  <input type="hidden" name="hash" value="{HASH}" />
+                  <input type="hidden" name="form[goods_from]" value="{favorites_goods.GOODS_FROM}" />
+                  <input type="hidden" name="form[goods_mod_id]" value="{favorites_goods.MIN_PRICE_NOW_ID}" />
+                  <div class="product-image">
+                     <a href="{favorites_goods.URL_MIN_PRICE_NOW | url_amp}" title="{favorites_goods.NAME}" class="product-img">
+                      <img class="goods-image-small lozad" data-src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{favorites_goods.NAME}" title="{favorites_goods.NAME}"  itemprop="image">
+                    </a>
+                    
+                    <a class="add-wishlist added  remove product-ico"
+                                      data-action-is-add="0"
+                                      data-action-add-url="{FAVORITES_ADD_URL}"
+                                      data-action-delete-url="{FAVORITES_DELETE_URL}"
+                                      data-action-add-title="Добавить &laquo;{favorites_goods.NAME}&raquo; в избранное"
+                                      data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из избранного"
+                                      data-prodname="{favorites_goods.NAME}"
+                                      data-prodimage="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                                      data-produrl="{favorites_goods.URL}"
+                                      data-id="{favorites_goods.ID}"
+                                      data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}" 
+                                      data-mod-id-price="{favorites_goods.MIN_PRICE_NOW}"
+                                      data-add-tooltip="В Избранное"
+                                      data-del-tooltip="Убрать из избранного"
+                                      data-tooltip="Убрать из избранного"
+                                      title="Убрать &laquo;{favorites_goods.NAME}&raquo; из избранного"
+                                      href="{FAVORITES_DELETE_URL}?id={favorites_goods.MIN_PRICE_NOW_ID}&amp;return_to={CURRENT_URL | urlencode}"
+                                      rel="nofollow"
+                    ></a>
+      
+                  </div>
+                  <div class="product-shop">
+                    <meta itemprop="name" content="{favorites_goods.NAME}">
+                    <meta itemprop="description" content="{% IF favorites_goods.DESCRIPTION_SHORT %}{favorites_goods.DESCRIPTION_SHORT}{% ELSE %}Описание отсутствует{% ENDIF %}">
+                    
+                     <div class="product-name"><a href="{favorites_goods.URL_MIN_PRICE_NOW | url_amp}" title="{favorites_goods.NAME}" itemprop="url">{favorites_goods.NAME}</a></div>
+
+                     <div class="price-box" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                      <link itemprop="availability" href="{% IF favorites_goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{%ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
+                      <meta itemprop="priceCurrency" content="{CURRENCY_CHAR_CODE}"/>
+                        <span class="price {% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT>favorites_goods.MIN_PRICE_NOW || favorites_goods.MIN_PRICE_OLD>favorites_goods.MIN_PRICE_NOW %}min_price_now{% ENDIF %}  {CURRENCY_CHAR_CODE}" itemprop="price" content="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</span>
+                        {% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT>favorites_goods.MIN_PRICE_NOW %}
+                          <span class="price_tere"> —</span><span class="price old-price {CURRENCY_CHAR_CODE}">{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+                        {% ELSEIF favorites_goods.MIN_PRICE_OLD>favorites_goods.MIN_PRICE_NOW %}
+                          <span class="price_tere"> —</span><span class="price old-price {CURRENCY_CHAR_CODE}">{favorites_goods.MIN_PRICE_OLD | money_format}</span>
+                        {% ELSE %}
+                          <span class="no-old-price"></span>
+                        {% ENDIF %}                          
+                      </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+    {% ENDFOR %}
+  </div>
+  <!-- END Избранные товары -->
+{% ENDIF %}
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		setTimeout(function () {
+		  $('.add-wishlist').off('click');
+		},1000);
+	});
+</script>
+
+
