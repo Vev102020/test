@@ -1,10 +1,5 @@
-<script>
-  var href = document.location.href;
-
-  if(~href.indexOf('/order/stage')){
-    $(location).attr('href', '/cart');
-  }
-</script>
+<div class="warning" style="display: block;">При оформлении заказа возникла ошибка. Обратитесь к администратору магазина.</div>
+<noindex>
 <form 
   {% IF ORDER_STAGE_NUM=1 %}
     action="{ORDER_STAGE_CONTACTS_URL}"
@@ -15,7 +10,7 @@
   {% ELSEIF ORDER_STAGE_NUM=4 %}
     action="{ORDER_STAGE_CONFIRM_URL}"
   {% ENDIF %}
-  method="post"  id="myform"
+  method="post"  id="myform" style="display:none"
 >
 
   <input type="hidden" name="hash" value="{HASH}" />
@@ -395,7 +390,7 @@
         <tbody>
           {% FOR cart_items %}
             <tr class="items"> 
-              <td><div class="image"><a href="{cart_items.GOODS_URL}"><img class="goods-image-icon" src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-icon.png?design=techno{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}"></a></div></td>
+              <td><div class="image"><a href="{cart_items.GOODS_URL}"><img class="goods-image-icon" src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-icon.png?design=leader{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}"></a></div></td>
               <td class="name"> 
                 <a href="{cart_items.GOODS_URL}">
                   {cart_items.GOODS_NAME}
@@ -532,3 +527,4 @@
 <script>
   $(function(){ OrderScripts()});
 </script>
+</noindex>

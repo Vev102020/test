@@ -8,7 +8,7 @@
         <div class="product-image">
           <div class="general-img">
             <a href="{GOODS_IMAGE_LARGE}"  id="zoom1" data-id="{GOODS_IMAGE_ID}" title="Увеличить {GOODS_NAME}">
-              <img src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-medium.png{%ELSE%}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" class="loop_img goods-image-medium" itemprop="image"/>
+              <img src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-medium.png?design=leader{%ELSE%}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" class="loop_img goods-image-medium" itemprop="image"/>
                 {% IF GOODS_IS_NEW || GOODS_IS_TOP || GOODS_MOD_MAX_DISCOUNT %}
                     <div class="icon_sticker">
                       {% IF GOODS_IS_NEW %}
@@ -24,8 +24,8 @@
                 {% ENDIF %}
             </a>
              <!-- Другие изображения товара. Отображаются если есть изображения товара -->
-          <span class="thumblist_navigation thumblist_navigation prev"></span>
-          <span class="thumblist_navigation next"></span>
+          <span {% FOR goods_images %}{% IF goods_images.length <= 1 %}style="display:none;"{% ENDIF %}{% ENDFOR %} class="thumblist_navigation thumblist_navigation prev"></span>
+          <span {% FOR goods_images %}{% IF goods_images.length <= 1 %}style="display:none;"{% ENDIF %}{% ENDFOR %} class="thumblist_navigation next"></span>
             <!-- Блок информации по акции действующей на товар, если таковая есть -->
           {% IF GOODS_MOD_MAX_DISCOUNT_ID %}
             <div class="goodsDataMainDiscountBlock" content="{GOODS_MOD_MAX_DISCOUNT_EXPIRED_AT | date("Y-m-d")}">
@@ -111,7 +111,7 @@
             <a title="Предыдущий товар" href="{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_URL}{% ELSE %}{NEIGHBOR_LAST_GOODS_URL}{% ENDIF %}"><i class="fal fa-angle-left"></i></a>
             <div class="content">
               <a href="{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_URL}{% ELSE %}{NEIGHBOR_LAST_GOODS_URL}{% ENDIF %}" title="Перейти к &laquo;{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_NAME}{% ELSE %}{NEIGHBOR_LAST_GOODS_NAME}{% ENDIF %}&raquo;">
-                <img class="image" src="{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_IMAGE_ICON}{% ELSEIF NEIGHBOR_LAST_GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-medium.png{% ELSE %}{NEIGHBOR_LAST_GOODS_IMAGE_ICON}{% ENDIF %}" alt="{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_NAME}{% ELSE %}{NEIGHBOR_LAST_GOODS_NAME}{% ENDIF %}">
+                <img class="image" src="{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_IMAGE_ICON}{% ELSEIF NEIGHBOR_LAST_GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-medium.png?design=leader{% ELSE %}{NEIGHBOR_LAST_GOODS_IMAGE_ICON}{% ENDIF %}" alt="{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_NAME}{% ELSE %}{NEIGHBOR_LAST_GOODS_NAME}{% ENDIF %}">
                 <h3 class="name">{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}{NEIGHBOR_PREVIOUS_GOODS_NAME}{% ELSE %}{NEIGHBOR_LAST_GOODS_NAME}{% ENDIF %}</h3>
               </a>
             </div>
@@ -122,7 +122,7 @@
             <a title="Cледующий товар" href="{% IF NEIGHBOR_NEXT_GOODS_URL %}{NEIGHBOR_NEXT_GOODS_URL}{% ELSE %}{NEIGHBOR_FIRST_GOODS_URL}{% ENDIF %}"><i class="fal fa-angle-right"></i></a>
             <div class="content">
               <a href="{% IF NEIGHBOR_NEXT_GOODS_URL %}{NEIGHBOR_NEXT_GOODS_URL}{% ELSE %}{NEIGHBOR_FIRST_GOODS_URL}{% ENDIF %}" title="Перейти к &laquo;{% IF NEIGHBOR_NEXT_GOODS_URL %}{NEIGHBOR_NEXT_GOODS_NAME}{% ELSE %}{NEIGHBOR_FIRST_GOODS_NAME}{% ENDIF %}&raquo;">
-                <img class="image" src="{% IF NEIGHBOR_NEXT_GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-medium.png{% ELSEIF NEIGHBOR_NEXT_GOODS_NAME %}{NEIGHBOR_NEXT_GOODS_IMAGE_ICON}{% ELSE %}{NEIGHBOR_FIRST_GOODS_IMAGE_ICON}{% ENDIF %}" alt="{% IF NEIGHBOR_NEXT_GOODS_URL %}{NEIGHBOR_NEXT_GOODS_NAME}{% ELSE %}{NEIGHBOR_FIRST_GOODS_NAME}{% ENDIF %}">
+                <img class="image" src="{% IF NEIGHBOR_NEXT_GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-medium.png?design=leader{% ELSEIF NEIGHBOR_NEXT_GOODS_NAME %}{NEIGHBOR_NEXT_GOODS_IMAGE_ICON}{% ELSE %}{NEIGHBOR_FIRST_GOODS_IMAGE_ICON}{% ENDIF %}" alt="{% IF NEIGHBOR_NEXT_GOODS_URL %}{NEIGHBOR_NEXT_GOODS_NAME}{% ELSE %}{NEIGHBOR_FIRST_GOODS_NAME}{% ENDIF %}">
                 <h3 class="name">{% IF NEIGHBOR_NEXT_GOODS_NAME %}{NEIGHBOR_NEXT_GOODS_NAME}{% ELSE %}{NEIGHBOR_FIRST_GOODS_NAME}{% ENDIF %}</h3>
               </a>
             </div>
@@ -684,7 +684,7 @@
                             data-action-add-title="Добавить &laquo;{related_goods.NAME}&raquo; в избранное"
                             data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из избранного"
                             data-prodname="{related_goods.NAME}"
-                            data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                            data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
                             data-produrl="{related_goods.URL}"
                             data-id="{related_goods.ID}"
                             data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
@@ -704,7 +704,7 @@
                             data-action-add-title="Добавить &laquo;{related_goods.NAME}&raquo; в избранное"
                             data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из избранного"
                             data-prodname="{related_goods.NAME}"
-                            data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                            data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
                             data-produrl="{related_goods.URL}"
                             data-id="{related_goods.ID}"
                             data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
@@ -728,7 +728,7 @@
                               data-action-add-title="Добавить &laquo;{related_goods.NAME}&raquo; в список сравнения с другими товарами"
                               data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из списка сравнения с другими товарами"
                               data-prodname="{related_goods.NAME}"
-                              data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                              data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
                               data-produrl="{related_goods.URL}"
                               data-id="{related_goods.ID}"
                               data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
@@ -748,7 +748,7 @@
                               data-action-add-title="Добавить &laquo;{related_goods.NAME}&raquo; в список сравнения с другими товарами" 
                               data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из списка сравнения с другими товарами" 
                               data-prodname="{related_goods.NAME}"
-                              data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                              data-prodimage="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}"
                               data-produrl="{related_goods.URL}"
                               data-id="{related_goods.ID}"
                               data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
@@ -765,7 +765,7 @@
                         <!-- /END Если в тарифном плане подключен модуль сравнения товаров и он не выключен в настройках магазина -->                        
                       </div>
                       <a href="{related_goods.URL_MIN_PRICE_NOW | url_amp}" title="{related_goods.NAME}" class="product-img">
-                        <img class="goods-image-small owl-lazy" data-src="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_goods.NAME}" title="{related_goods.NAME}"  itemprop="image">
+                        <img class="goods-image-small owl-lazy" data-src="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_goods.NAME}" title="{related_goods.NAME}"  itemprop="image">
                       </a>
                        {% IF related_goods.IS_NEW || related_goods.IS_TOP || related_goods.MAX_DISCOUNT%}
                         <div class="icon_sticker">
@@ -896,7 +896,7 @@
                             data-action-add-title="Добавить &laquo;{related_views_goods.NAME}&raquo; в избранное"
                             data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из избранного"
                             data-prodname="{related_views_goods.NAME}"
-                            data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                            data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
                             data-produrl="{related_views_goods.URL}"
                             data-id="{related_views_goods.ID}"
                             data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}" 
@@ -916,7 +916,7 @@
                             data-action-add-title="Добавить &laquo;{related_views_goods.NAME}&raquo; в избранное"
                             data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из избранного"
                             data-prodname="{related_views_goods.NAME}"
-                            data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                            data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
                             data-produrl="{related_views_goods.URL}"
                             data-id="{related_views_goods.ID}"
                             data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}" 
@@ -940,7 +940,7 @@
                               data-action-add-title="Добавить &laquo;{related_views_goods.NAME}&raquo; в список сравнения с другими товарами"
                               data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из списка сравнения с другими товарами"
                               data-prodname="{related_views_goods.NAME}"
-                              data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                              data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
                               data-produrl="{related_views_goods.URL}"
                               data-id="{related_views_goods.ID}"
                               data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
@@ -960,7 +960,7 @@
                               data-action-add-title="Добавить &laquo;{related_views_goods.NAME}&raquo; в список сравнения с другими товарами" 
                               data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из списка сравнения с другими товарами" 
                               data-prodname="{related_views_goods.NAME}"
-                              data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
+                              data-prodimage="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}"
                               data-produrl="{related_views_goods.URL}"
                               data-id="{related_views_goods.ID}"
                               data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
@@ -977,7 +977,7 @@
                         <!-- /END Если в тарифном плане подключен модуль сравнения товаров и он не выключен в настройках магазина -->                        
                       </div>
                       <a href="{related_views_goods.URL_MIN_PRICE_NOW | url_amp}" title="{related_views_goods.NAME}" class="product-img">
-                        <img class="goods-image-small owl-lazy" data-src="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=techno{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_views_goods.NAME}" title="{related_views_goods.NAME}"  itemprop="image">
+                        <img class="goods-image-small owl-lazy" data-src="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo-small.png?design=leader{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_views_goods.NAME}" title="{related_views_goods.NAME}"  itemprop="image">
                       </a>
                       {% IF related_views_goods.IS_NEW || related_views_goods.IS_TOP || related_views_goods.MAX_DISCOUNT%}
                         <div class="icon_sticker">
